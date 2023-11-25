@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"targeter/cmd"
+	"github.com/Abubakarr99/targeter/cmd"
 )
 
 func main() {

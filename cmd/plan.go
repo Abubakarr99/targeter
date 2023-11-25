@@ -2,10 +2,10 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/Abubakarr99/targeter/target"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 	"os"
-	"targeter/target"
 )
 
 var getCmd = &cobra.Command{
