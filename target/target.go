@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclparse"
+	"strings"
 )
 
 func ParseTerraformFile(filePath string) (*hcl.File, error) {
@@ -22,7 +23,26 @@ func ExtractResources(file *hcl.File) ([]hcl.Block, error) {
 				Type:       "resource",
 				LabelNames: []string{"type", "name"},
 			},
-			// Include other block types as needed
+			{
+				Type:       "module",
+				LabelNames: []string{"name"},
+			},
+			{
+				Type:       "provider",
+				LabelNames: []string{"name"},
+			},
+			{
+				Type:       "data",
+				LabelNames: []string{"type", "name"},
+			},
+			{
+				Type:       "locals",
+				LabelNames: []string{},
+			},
+			{
+				Type:       "variable",
+				LabelNames: []string{"name"},
+			},
 		},
 	}
 	var resourceBlocks []hcl.Block
@@ -44,8 +64,8 @@ func StringOutput(blocks []hcl.Block) string {
 	targets := ""
 	for _, block := range blocks {
 		if len(block.Labels) > 1 {
-			targets += fmt.Sprintf("target=\"%s.%s\" ", block.Labels[0], block.Labels[1])
+			targets += fmt.Sprintf("-target=\"%s.%s\" ", block.Labels[0], block.Labels[1])
 		}
 	}
-	return targets
+	return strings.TrimSpace(targets)
 }

@@ -53,5 +53,6 @@ func mustBool(fs *pflag.FlagSet, name string) bool {
 func init() {
 	RootCmd.AddCommand(getCmd)
 	getCmd.Flags().BoolP("apply", "a", false, "generate the apply output")
+	getCmd.Flags().BoolP("destroy", "d", false, "generate the destroy output")
 	getCmd.Flags().StringP("file", "f", "", "The terraform file to target")
 }
