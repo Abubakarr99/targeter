@@ -18,6 +18,9 @@ var getCmd = &cobra.Command{
 		if mustBool(fs, "apply") {
 			action = "apply"
 		}
+		if mustBool(fs, "destroy") {
+			action = "destroy"
+		}
 		parsedFile, err := target.ParseTerraformFile(file)
 		if err != nil {
 			fmt.Println("error: ", err)
