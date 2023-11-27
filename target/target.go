@@ -56,6 +56,9 @@ func ExtractResources(file *hcl.File) ([]hcl.Block, error) {
 		if block.Type == "resource" {
 			resourceBlocks = append(resourceBlocks, *block)
 		}
+		if block.Type == "module" {
+			resourceBlocks = append(resourceBlocks, *block)
+		}
 	}
 	return resourceBlocks, nil
 }
@@ -63,8 +66,11 @@ func ExtractResources(file *hcl.File) ([]hcl.Block, error) {
 func StringOutput(blocks []hcl.Block) string {
 	targets := ""
 	for _, block := range blocks {
-		if len(block.Labels) > 1 {
+		if len(block.Labels) > 1 && block.Type == "resource" {
 			targets += fmt.Sprintf("-target=\"%s.%s\" ", block.Labels[0], block.Labels[1])
+		}
+		if len(block.Labels) == 1 && block.Type == "module" {
+			targets += fmt.Sprintf("-target=\"module.%s\" ", block.Labels[0])
 		}
 	}
 	return strings.TrimSpace(targets)
