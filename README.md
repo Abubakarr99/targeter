@@ -5,7 +5,7 @@ Target terraform file
 
 To install the package
 ```shell
-go install github.com/Abubakarr99/targeter@v1.0.0
+go install github.com/Abubakarr99/targeter@latest
 ```
 
 ## Examples
