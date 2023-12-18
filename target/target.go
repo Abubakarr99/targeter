@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclparse"
+	"io/ioutil"
 	"strings"
 )
 
@@ -74,4 +75,20 @@ func StringOutput(blocks []hcl.Block) string {
 		}
 	}
 	return strings.TrimSpace(targets)
+}
+
+func GenerateImport(resources []hcl.Block) string {
+	var importFileContent string
+	for _, resource := range resources {
+		importFileContent += fmt.Sprintf("import {\n  to = %s.%s\n  id = \"\"\n}\n\n", resource.Type, resource.Labels[0])
+	}
+	return importFileContent
+}
+
+func GenerateImportFile(content string, outputPath string) error {
+	err := ioutil.WriteFile(outputPath, []byte(content), 0644)
+	if err != nil {
+		return fmt.Errorf("error writing to import file%s", err)
+	}
+	return nil
 }
