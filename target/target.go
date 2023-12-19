@@ -80,7 +80,7 @@ func StringOutput(blocks []hcl.Block) string {
 func GenerateImport(resources []hcl.Block) string {
 	var importFileContent string
 	for _, resource := range resources {
-		importFileContent += fmt.Sprintf("import {\n  to = %s.%s\n  id = \"\"\n}\n\n", resource.Type, resource.Labels[0])
+		importFileContent += fmt.Sprintf("import {\n  to = %s.%s\n  id = \"\"\n}\n\n", resource.Labels[0], resource.Labels[1])
 	}
 	return importFileContent
 }

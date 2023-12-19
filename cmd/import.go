@@ -34,7 +34,7 @@ var importCmd = &cobra.Command{
 }
 
 func init() {
-	RootCmd.AddCommand(getCmd)
+	RootCmd.AddCommand(importCmd)
 	importCmd.Flags().StringP("file", "f", "", "The terraform file to target")
 	importCmd.Flags().StringP("output", "o", "import.tf", "The path to the output of import file")
 }
